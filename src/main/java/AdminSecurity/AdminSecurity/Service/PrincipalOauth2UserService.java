@@ -24,7 +24,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         // 구글 아이디로 로그인 시도 시
         if (userRequest.getClientRegistration().getRegistrationId().equals("google")){
 
-            String name = (String) oAuth2User.getAttribute("name");
+            String name =  oAuth2User.getAttribute("name");
             String password = oAuth2User.getAttribute("sub");
             String site = "google";
             Member member = new Member(name,password,site);
@@ -35,7 +35,16 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
         // 깃허브 아이디로 로그인 시도 시
         else{
+            String name =  oAuth2User.getAttribute("login");
+            String password = oAuth2User.getAttribute("id").toString();
 
+
+
+            String site = "github";
+            Member member = new Member(name,password,site);
+
+
+            memberRepository.save(member);
         }
 
 
